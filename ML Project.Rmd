@@ -1,0 +1,54 @@
+---
+title: "It's a Marathon, Not a Sprint"
+subtitle: "*Make that multiple marathons (and some sprinting)"
+output: pdf_document
+---
+
+```{r setup,  include = FALSE, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(knitr)
+playerDistance = readr::read_csv("/Users/melielewis/Downloads/pff/final.csv")
+
+```
+
+With only four days until the final between France and Morocco, every day of rest is critical, especially for Lionel Messi, who - at  `r playerDistance %>% filter(playerName == "Lionel Messi") %>% select(age) %>% distinct()` years of age - may be playing in his final world cup. It's not just Messi who is likely feeling the strain of this year's tight schedule. Over the past `r floor(as.numeric(difftime("2022-12-14",min(playerDistance$date))))` days, each team has played 6 games each. To a basketball or baseball fan, maybe this doesn't sound like a lot, but the difference comes down to the distance.
+
+The average NBA player runs ~ 2.5 miles (~4km) per game and the average MLB player runs only a half of a mile per game. How far of the players of team France and team Argentina run?
+
+Using PFF FC event tracking data, player movement is captured at a rate of 29.97 frames per second and using those x, y coordinates the distance a player moves over the course of a game can be calculated. 
+
+## Top 10 Total Distances Run in the FIFA World Cup
+
+```{r table,echo=FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+df = playerDistance %>% group_by(playerName) %>% summarize(Team = first(team),distance = round(sum(distance)/1000,2),avg_distance = round(mean(distance)/n_distinct(gameId),2),   Age = first(age)) %>% arrange(desc(distance)) %>% ungroup() %>% head(n=10) %>% rename(Player = playerName,`Distance (km)` = distance, `Avg Distance per Game (km)` = avg_distance) %>% mutate(Team =ifelse(Team=="Argentina", "/Users/melielewis/Downloads/pff/argentina.png","/Users/melielewis/Downloads/pff/france.png"))
+teams = df$Team
+df  %>%  mutate(Team = "") %>% kable(format="latex") %>% kable_styling(full_width = T) %>% 
+  column_spec(1, width = "1in",bold =T) %>%
+  column_spec(2, image = spec_image(teams, 75, 75))
+```
+For reference, a marathon is 42.195km and 9 players have exceeded that distance.That being said, sometimes we assume that athletes are super-human and though these numbers may seem daunting to those of us who don't make a living from our athleticism, one might argue that these guys are used to it. Are they?
+
+Total game distance was predicted^[a linear mixed effects model nesting games within players] for each player/game using only the week of competition to see if per-game distance is declining over the course of the competition. 
+
+```{r analysis, echo = FALSE, warning = FALSE, message = FALSE}
+library(lme4)
+
+test = lmer(distance ~ week+age +(1 | playerName), data = playerDistance)
+
+```
+
+On average, the expected distance per game declined by `r round(sjPlot::get_model_data(test, type="est")$estimate[1],2)` km each week. 
+
+```{r viz, echo = FALSE, warning = FALSE, message = FALSE}
+library(sjPlot)
+
+plot_model(test, type="pred")[[1]]
+
+```
+
+This suggests fatigue might be an issue. Age, on the other hand had a negligible effect on distance, expected distance per game reducing by only `r round(sjPlot::get_model_data(test, type="est")$estimate[2],2)` for every extra birthday. In other words, Messi has nothing to worry about, age isn't an issue.
+
+With only another few days to go, these teams will run their last 1/4 marathon (no, really) and a champion will be crowned.

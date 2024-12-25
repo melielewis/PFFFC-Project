@@ -1,0 +1,16 @@
+ bzcat 3835.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>3835.csv
+
+ bzcat 3850.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>3850.csv
+
+ bzcat 10503.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>10503.csv
+ 
+  bzcat 10504.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>10504.csv
+  
+  bzcat 10511.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>10511.csv
+    
+ bzcat 10513.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>10513.csv
+  
+bzcat 10514.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>10514.csv
+    
+bzcat 10515.jsonl.bz2 |   jq -s -r '.[] | {"period":.period, "periodElapsed":.periodElapsedTime,"gameElapsed":.periodGameClockTime,"players":.homePlayersSmoothed[]} | {"period":.period, "periodElapsed":.periodElapsed,"gameElapsed":.gameElapsed, "jerseyNum":.players.jerseyNum, "x":.players.x,"y":.players.y} | [.period, .periodElapsed,.gameElapsed,.jerseyNum,.x,.y]|@csv'>>10515.csv
+    
